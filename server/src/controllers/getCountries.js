@@ -26,7 +26,7 @@ const getCountries = async (req, res)=>{
             }));
 
             await Country.bulkCreate(dataCountries)
-            console.log("entramos en la api", dataCountries);
+            console.log("entramos en la api");
             res.status(200).json(dataCountries)
         }
         
