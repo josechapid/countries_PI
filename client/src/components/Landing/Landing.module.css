@@ -1,0 +1,14 @@
+.landing_page {
+  background-image: url("https://i.pinimg.com/originals/85/07/d8/8507d88b2a0ab4b88299bed32bcc772e.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding: 20px;
+  color: #ffffff; /* Color del texto */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  transition: background-size 0.5s;
+  margin: none;
+}
