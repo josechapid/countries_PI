@@ -1,0 +1,104 @@
+.container {
+  padding: 20px;
+  background-image: url("https://i.pinimg.com/originals/85/07/d8/8507d88b2a0ab4b88299bed32bcc772e.jpg");
+}
+
+.detailsContainer {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.7); 
+  text-align: center; /* Centrar el contenido */
+}
+
+.title {
+  margin-bottom: 10px; /* Espaciado inferior */
+}
+
+.countryName {
+  margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.flagsContainer {
+  display: flex; /* Mostrar en fila */
+  justify-content: center; /* Centrar horizontalmente */
+}
+
+.flag img{
+  width: 450px; /* Tamaño de la bandera y el escudo */
+  height: auto;
+  margin: 0 20px; /* Espaciado entre la bandera y el escudo */
+}
+
+.coatOfArms img {
+  width: 300px; /* Tamaño de la bandera y el escudo */
+  height: auto;
+  margin: 0 20px; /* Espaciado entre la bandera y el escudo */
+}
+
+.countryDetails {
+  display: flex; /* Mostrar en fila */
+}
+
+.countryDetails > div {
+  flex: 1; /* Ocupar todo el espacio disponible */
+}
+
+.countryDetails p {
+  margin: 5px 0; /* Espaciado vertical entre los párrafos */
+}
+
+.countryDetails p span {
+  font-weight: bold; /* Texto en negrita */
+}
+
+h2{
+    font-size: 60pt;
+}
+h3{
+    font-size: 40pt;
+}
+.countryDetails > div > p {
+  margin-bottom: 10px; /* Reducir el espacio inferior entre los párrafos */
+}
+.countryDetails img{
+ width: 80px;
+}
+
+
+.activitiesContainer {
+  margin-top: 20px;
+}
+
+.activitiesContainer h2 {
+  font-size: 20px;
+}
+
+.activitiesContainer ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.activitiesContainer li {
+  margin-bottom: 10px;
+}
+
+.activitiesContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Columnas automáticas con un ancho mínimo de 300px */
+  grid-gap: 20px; /* Espacio entre las actividades */
+  justify-items: center; /* Centra las actividades horizontalmente */
+  margin-top: 20px; /* Espacio entre las actividades y el contenido superior */
+  color: aliceblue;
+  
+}
+
+.activity {
+  background-color: rgba(255, 255, 255, 0.7); /* Fondo transparente */
+  padding: 15px;
+  border-radius: 8px;
+  max-width: 400px; /* Ancho máximo de la actividad */
+  width: 100%; /* Ancho completo */
+  color: black;
+}
+
