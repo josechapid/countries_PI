@@ -1,12 +1,8 @@
-import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getNameCountries } from "../../redux/actions/actions";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./SearchBar.module.css"
 
-function SearchBar (){
-    const dispatch = useDispatch()
+function SearchBar ({onSearch}){
     const navigate= useNavigate()
     const [name, setName]= useState("")
 
@@ -14,17 +10,21 @@ function SearchBar (){
         setName(e.target.value)
     } 
      
-    function handleSubmit(e){
-     e.preventDefault()
-     dispatch(getNameCountries(name))
+    function handleSubmit(){
+     if(name){
+        onSearch(name)
+        navigate("/home")
+     } else{
+        alert("Debe escribir un nombre de pais")
+     }
      setName("")   
     }
         
 
     return(
         <div className={style.input}>
-            <input type="text" value={name} onChange={handleInputChange} placeholder="Buscar Pais por Nombre"/>
-            <button type="submit" onClick={handleSubmit}>Buscar</button>
+            <input type="search" value={name} onChange={handleInputChange} placeholder="Buscar Pais por Nombre"/>
+            <button onClick={handleSubmit}>Buscar</button>
         </div>
     )
 }

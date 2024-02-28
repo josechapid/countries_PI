@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios"
 import style from "./Detail.module.css"
 
@@ -40,6 +40,9 @@ function Detail (){
 
   return (
     <div className={style.container}>
+      <Link to="/home">
+        <button>Home</button>
+      </Link>
       {Object.keys(country).length > 0 && (
         <div className={style.detailsContainer}>
           <h2>Detalles del País</h2>

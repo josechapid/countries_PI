@@ -1,0 +1,81 @@
+.general{
+   background-image: url("https://i.pinimg.com/originals/85/07/d8/8507d88b2a0ab4b88299bed32bcc772e.jpg");
+   background-size: cover; /* Hace que la imagen cubra todo el fondo */
+  background-position: center; /* Centra la imagen */
+  min-height: 100vh; /* Asegura que el contenedor ocupe al menos toda la altura de la ventana */
+  display: flex; /* Usa flexbox para centrar el contenido verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;
+}
+.container {
+  margin: 20px auto; /* Centra el contenedor horizontalmente */
+  width: 80%;
+  max-width: 600px; /* Establece un ancho máximo para el contenedor */
+  padding: 40px; /* Añade espacio interno al contenedor */
+  border: 1px solid #ccc; /* Añade un borde al contenedor */
+  border-radius: 10px; /* Agrega bordes redondeados al contenedor */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+  background-color: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.label {
+  font-weight: bold;
+}
+
+.input {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.radio-group {
+  display: flex;
+  
+  align-items: center;
+}
+.radioOption {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+.radio-label {
+  margin-right: 5px;
+  font-size: 16px;
+}
+.input[type="radio"] {
+  transform: scale(1.5); /* Aumenta el tamaño de los botones de dificultad */
+  margin-right: 10px;
+}
+
+.select {
+  padding: 10px;
+  width: 100%;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+h1{
+    color:#0056b3;
+    align-items: center;
+    align-content: center;
+}

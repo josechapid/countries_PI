@@ -1,10 +1,10 @@
 import React from "react";
 import style from "./Paginado.module.css"
 
-function Paginado ({countriesPerPAge, allCountries, paginado}){
+function Paginado ({countriesPerPAge, totalCountries, paginado}){
     const pageNumbers= []
-    for(let i=0; i<=Math.ceil(allCountries/countriesPerPAge); i++){
-        pageNumbers.push(i+1)
+    for(let i=1; i<=Math.ceil(totalCountries/countriesPerPAge); i++){
+        pageNumbers.push(i)
 
     }
     return(
