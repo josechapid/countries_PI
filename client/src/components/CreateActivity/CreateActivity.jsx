@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom"
 import { postActivities, getCountries } from "../../redux/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import validation from "./validation";
 
 import style from "./CreateActivity.module.css"
 
@@ -10,6 +11,7 @@ function CreateActivity(){
     const dispatch= useDispatch()
     const navigate= useNavigate()
     const countries= useSelector((state)=> state.countries)
+    const activities= useSelector((state)=>state.activities)
    
 
     const [input, setInput] = useState({
@@ -19,69 +21,87 @@ function CreateActivity(){
       season: "Verano",
       countries: [],
     });
+     const [errors, setErrors] = useState({
+       name: "",
+       difficulty: "",
+       duration: "",
+       season: "",
+     });
 
     useEffect(()=>{
         dispatch(getCountries())
-    }, [])
+    }, [dispatch])
 
-    function handleChange(e){
-        setInput({
-            ...input,
-            [e.target.name] : e.target.value
-        })
-        console.log(input);
-    }
+     function handleChange(e) {
+       const { value, name } = e.target;
+       setInput({
+         ...input,
+         [name]: value,
+       });
 
-    function handleCheck(e){
-        
-            setInput({
-                ...input,
-                difficulty: e.target.value
-            })
-        
-        console.log(input);
-    }
+       setErrors({
+         ...errors,
+         [name]: "",
+       });
+     }
 
-    function handleSelect(e){
-        const {name, value}= e.target
-        if(name==="duration"){
-            setInput({
-              ...input,
-              duration: e.target.value,
-            });
-            console.log(input)
-        }
-        else if (name==="season"){
-            setInput({
-              ...input,
-              season: e.target.value,
-            });
-            console.log(input);
-        } else if(name=== "countries"){
-            setInput({
-                ...input, 
-                countries: [...input.countries, e.target.value]
-            })
-            console.log(input);
+     function handleCheck(e) {
+       setInput({
+         ...input,
+         difficulty: e.target.value,
+       });
+     }
 
-        }
-    }
+     function handleSelect(e) {
+       const { name, value } = e.target;
+       if (name === "duration") {
+         setInput({
+           ...input,
+           duration: e.target.value,
+         });
+       } else if (name === "season") {
+         setInput({
+           ...input,
+           season: e.target.value,
+         });
+       } else if (name === "countries") {
+         setInput({
+           ...input,
+           countries: input.countries.includes(value)
+             ? input.countries
+             : [...input.countries, value], 
+         });
+       }
+     }
 
-        function handleSumit (e){
-            e.preventDefault()
-            console.log(input);
-            dispatch(postActivities(input))
-            alert("Actividad Creada")
-            setInput({
-              name: "",
-              difficulty: "",
-              duration: "Una hora",
-              season: "Verano",
-              countries: [],
-            });
-            navigate("/home")
+     function handleSubmit(e) {
+       e.preventDefault();
+       console.log("handleSubmit is called");
 
-        }
+       const existingActivity = activities.find(
+         (activity) => activity.name === input.name
+       );
+
+       if (existingActivity) {
+         alert("Ya existe una actividad con este nombre");
+       } else {
+         const validationErrors = validation(input, activities);
+         if (Object.keys(validationErrors).length === 0) {
+           dispatch(postActivities(input));
+           alert("Actividad Creada");
+           setInput({
+             name: "",
+             difficulty: "",
+             duration: "Una hora",
+             season: "Verano",
+             countries: [],
+           });
+           navigate("/home");
+         } else {
+           setErrors(validationErrors);
+         }
+       }
+     }
 
 
     return (
@@ -91,7 +111,7 @@ function CreateActivity(){
             <button className={style.button}>Volver</button>
           </Link>
           <h1>Crear activity</h1>
-          <form onSubmit={handleSumit}>
+          <form onSubmit={handleSubmit}>
             <div className={style.formGroup}>
               <label className={style.label}>Name: </label>
               <input

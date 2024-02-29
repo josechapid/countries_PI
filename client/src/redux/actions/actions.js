@@ -20,6 +20,7 @@ export function getActivities (){
         try {
             const response = await axios.get(`http://localhost:3001/activities`);
             dispatch({type: "GET_ACTIVITIES", payload: response.data})
+            console.log(response.data);
             
         } catch (error) {
             console.error("Error getActivities: ", error)
@@ -69,6 +70,7 @@ export function sortPopulation (order){
 
 
 export function filterActivities (payload){
+    console.log(payload);
     return {
         type: "FILTER_ACTIVITY",
         payload,

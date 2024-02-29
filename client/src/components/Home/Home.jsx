@@ -17,6 +17,9 @@ function Home (){
     const dispatch= useDispatch()    
     const allCountries= useSelector((state)=>state.countries)
     const activities= useSelector((state)=> state.activities)
+    const filteredCountriesByActivity = useSelector(
+      (state) => state.filteredCountriesByActivity
+    );
     
     const [order, setOrder]= useState("")
     const [searchTerm, setSearchTerm]=useState("")
@@ -75,7 +78,7 @@ function Home (){
   function handleFilterActivity (e){
     e.preventDefault()
     const filterAct = e.target.value;
-    //console.log(filterActivities);
+    console.log(filterAct);
     dispatch(filterActivities(filterAct));
   }
     
@@ -132,10 +135,10 @@ function Home (){
 
           <select onChange={handleFilterActivity}>
             <option>actividad turística</option>
-            <option value="none">ninguna</option>
-            {activities.map(({name, key}) => (
-              <option key={key} value={name}>
-                {name}
+            
+            {activities.map((activity) => (
+              <option key={activity.id} value={activity.name}>
+                {activity.name}
               </option>
             ))}
           </select>

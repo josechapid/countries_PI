@@ -9,12 +9,14 @@ const inicialState={
 }
 function rootReducer (state= inicialState, action){
     switch (action.type) {
+      
       case "GET_COUNTRIES":
         return {
           ...state,
           countries: action.payload,
           allCountries: action.payload,
           filterCountries: action.payload,
+          
         };
 
       case "FILTER_BY_CONTINENT":
@@ -34,24 +36,24 @@ function rootReducer (state= inicialState, action){
             ...state,
             activities: action.payload,
           };
-        case "FILTER_ACTIVITY":          
-          /* const activityFilter = state.allCountries.filter(country=> country.Countries.some(countryActivity=> countryActivity.name === action.payload))
-          console.log(action.payload); */
-           const filteredCountry = [...state.filterCountries].filter(
-             (activity) => {
-               for (const country of activity.Countries) {
-                 if (
-                   country[0].name !== undefined &&
-                   country[0].name === action.payload
-                 ) {
-                   return country.name;
-                 }
-               }
-             }
-           );
+        case "FILTER_ACTIVITY":   
+        let info
+        const filterActivity = state.activities.filter((activity) => {
+          
+          if (activity.name === action.payload) {
+            info= activity.Countries.map(country => ({
+                id: country.id,
+                name: country.name,
+                image: country.image,
+                continents: country.continents,            
+          }));    
+          console.log(info);
+        return info
+        }})   
+        console.log(filterActivity);
           return {
             ...state,
-            countries: filteredCountry,
+            countries: info,
             currentPage: 1,
           };
 
