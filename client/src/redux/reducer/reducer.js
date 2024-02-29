@@ -14,6 +14,7 @@ function rootReducer (state= inicialState, action){
           ...state,
           countries: action.payload,
           allCountries: action.payload,
+          filterCountries: action.payload,
         };
 
       case "FILTER_BY_CONTINENT":
@@ -27,20 +28,30 @@ function rootReducer (state= inicialState, action){
           countries: statusFilter,
           currentPage: 1
         };
-
-        case "FILTER_ACTIVITY":
-          const allActivities = state.allCountries;
-          const activityFilter =
-            action.payload === "All"
-              ? allActivities
-              : allActivities.filter(
-                  (country) =>
-                    country.country_activity &&
-                    country.country_activity.ActivityId === action.payload
-                );
+        
+        case "GET_ACTIVITIES":
           return {
             ...state,
-            countries: activityFilter,
+            activities: action.payload,
+          };
+        case "FILTER_ACTIVITY":          
+          /* const activityFilter = state.allCountries.filter(country=> country.Countries.some(countryActivity=> countryActivity.name === action.payload))
+          console.log(action.payload); */
+           const filteredCountry = [...state.filterCountries].filter(
+             (activity) => {
+               for (const country of activity.Countries) {
+                 if (
+                   country[0].name !== undefined &&
+                   country[0].name === action.payload
+                 ) {
+                   return country.name;
+                 }
+               }
+             }
+           );
+          return {
+            ...state,
+            countries: filteredCountry,
             currentPage: 1,
           };
 
@@ -64,11 +75,6 @@ function rootReducer (state= inicialState, action){
           countries: orderedCountries,
         };
 
-      case "GET_ACTIVITIES":
-        return {
-          ...state,
-          activities: action.payload,
-        };
 
       case "POST_ACTIVITIES":
         return {
@@ -86,9 +92,12 @@ function rootReducer (state= inicialState, action){
         };
 
         case "SORT_POPULATION":
+          const Ascendet= [...state.countries].sort((a,b)=> a.population - b. population)
+          const Descendet= [...state.countries].sort((a,b)=> b.population - a. population)
+          console.log(Ascendet);
           return {
             ...state,
-            countries: action.payload.countries,
+            countries: action.payload === "Ascendent" ? Ascendet : action.payload === "Descendent" ? Descendet: state.countries
           }
         
 

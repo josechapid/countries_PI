@@ -29,7 +29,7 @@ function Home (){
 
     useEffect(()=>{
       dispatch (getActivities())
-    }, [dispatch])
+    }, [])
 
     function handleFilterContinent(e){
       dispatch(filterContinent(e.target.value))
@@ -65,36 +65,18 @@ function Home (){
         setCurrentPage(1)
     }
 
-    async function handleSortPopulation(order){    
-      try {
-      const response = await axios.get("http://localhost:3001/countries");{
-        
-      } console.log(response.data);
-      const sortedCountries = response.data.sort((a, b) => {
-        const populationA = parseInt(a.population);
-        const populationB = parseInt(b.population);
-        switch (order) {
-          case "Asc":
-            console.log("entre a el asc");
-            return populationA - populationB;
-          case "Desc":
-            console.log("entre a el desc");
-            return populationB - populationA;
-          default:
-            return 0;
-        }
-      });
-      console.log("Desde la home", sortedCountries);
-      dispatch(sortPopulation(sortedCountries));
-    } catch (error) {
-      console.error("Error en el ordenamiento de la población:", error);
-    }
+    async function handleSortPopulation(event){
+      event.preventDefault()
+      const population = event.target.value
+      dispatch(sortPopulation(population))    
+     
   }
 
   function handleFilterActivity (e){
-    const selectedActivityId = e.target.value;
-    console.log(selectedActivityId);
-    dispatch(filterActivities(selectedActivityId))
+    e.preventDefault()
+    const filterAct = e.target.value;
+    //console.log(filterActivities);
+    dispatch(filterActivities(filterAct));
   }
     
 
@@ -127,10 +109,12 @@ function Home (){
           </select>
 
           <select
-            name="sortPop" id="order" onChange={(e) => handleSortPopulation(e.target.value)} defaultValue="Placeholder">
-            <option value="Placeholder" disabled>Ordenar por población</option>
-            <option value="Asc">Ascendente</option>
-            <option value="Desc">Descendente</option>
+            onChange={handleSortPopulation}
+            className={style.select_container}
+          >
+            <option value="default">Population</option>
+            <option value="Ascendent">Ascendent</option>
+            <option valeue="Descendent">Descendent</option>
           </select>
 
           <select onChange={(e) => handleFilterContinent(e)}>
@@ -146,13 +130,12 @@ function Home (){
             <option value="Oceania">Oceania</option>
           </select>
 
-          <select onChange={(e)=>handleFilterActivity(e)}>
-            <option value="Placeholder" disabled>
-              Filtrar por actividad turística 
-            </option>
-            {activities.map((activity)=>(
-              <option key={activity.id} value={activity.name}>
-                {activity.name}
+          <select onChange={handleFilterActivity}>
+            <option>actividad turística</option>
+            <option value="none">ninguna</option>
+            {activities.map(({name, key}) => (
+              <option key={key} value={name}>
+                {name}
               </option>
             ))}
           </select>

@@ -64,32 +64,7 @@ export function searchCountry(term){
 }
 
 export function sortPopulation (order){
-    return async (dispatch)=>{
-        try {
-            const response = await axios.get("http://localhost:3001/countries");
-            const sortedCountries= response.data.sort((a,b)=>{
-                const populationA= parseInt(a.population)
-                const populationB= parseInt(b.population)
-                switch (order) {
-                    case "Asc": 
-                    return populationA - populationB;
-                    case "Desc":
-                        return populationB - populationA;
-                    default:
-                        return 0;
-                }
-            })
-            console.log("sorted countries desde la action: ", sortedCountries);
-            dispatch({
-              type: "SORT_POPULATION",
-              payload: { countries: sortedCountries },
-            });
-            
-        } catch (error) {
-            console.error("Error sortedPopulation: ", error)
-            
-        }
-    }
+    return { type: "SORT_POPULATION", payload: order};
 }
 
 
